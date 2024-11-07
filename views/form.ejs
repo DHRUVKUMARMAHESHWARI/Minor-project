@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main flex bg-red-300 w-full h-screen">
+    <div class="left bg-red-500 h-full w-[20%] "></div>
+    <div class="right relative  h-full w-[80%] ">
+      <div class="top_nav w-[95%] h-[8%] bg-green-800 mt-4 ml-7"></div>
+
+      <div class="right_center m-8 mt-8 ml-26 h-[50%] w-[70%] bg-blue-500">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide relative">
+              <!-- Feedback Form -->
+              <form action="/submitSuccess" method="get" class="space-y-4">
+                <!-- Feedback Questions -->
+                <div class="overflow-x-auto">
+                  <table class="min-w-full table-auto text-center border-collapse border border-gray-300">
+                    <thead class="bg-gray-200">
+                      <tr>
+                        <th class="px-4 py-2 border">Criteria</th>
+                        <th class="px-2 py-2 border">Excellent</th>
+                        <th class="px-2 py-2 border">Good</th>
+                        <th class="px-2 py-2 border">Average</th>
+                        <th class="px-2 py-2 border">Poor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Repeatable Form Row -->
+                      <% const feedbackCriteria=["Quality of Food"]; %>
+                        <% feedbackCriteria.forEach((criteria)=> { %>
+                          <tr class="border">
+                            <td class="px-4 py-2 border text-left">
+                              <%= criteria %>
+                            </td>
+                            <% for(let i=0; i<4; i++) { %>
+                              <td class="px-2 py-2 border">
+                                <input type="radio" name="<%= criteria %>" value="<%= i %>"
+                                  class="form-radio text-blue-600" required>
+                              </td>
+                              <% } %>
+                          </tr>
+                          <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+
+              </form>
+
+            </div>
+            
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">Slide 5</div>
+            <div class="swiper-slide">Slide 6</div>
+            <div class="swiper-slide">Slide 7</div>
+            <div class="swiper-slide">Slide 8</div>
+            <div class="swiper-slide">Slide 9</div>
+            
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <div class="right_nav bg-yellow-600 h-[80%] w-[15%] absolute right-[35px] top-[115px]"></div>
+
+      <div class="progressbar  h-12 w-[30%] ml-8 mt-28 relative">
+        <h5 class="text-xl">Progress Bar</h5>
+        <div class="progress bg-green-600 mt-2 rounded-2xl h-[12px] w-[90%] "></div>
+      </div>
+
+      <button class="bg-yellow-400 left-[65%] mt-[-2%] absolute p-2 rounded-xl">Submit</button>
+    </div>
+  </div>
+
+<<<<<<< HEAD
+=======
+  <!-- Main content -->
+  <div class="maincontent flex flex-col w-full ml-64 md:ml-0 p-6 transition duration-500">
+    
+    <!-- Top Navbar -->
+    <div class="flex justify-between items-center bg-gray-400 rounded-md p-6" style="padding-top: 20px;">
+      <h2 class="text-2xl font-semibold">Hello, Gajendra</h2>
+>>>>>>> 67446b2093a1196651f1c80341282d7f2e5d3eca
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      pagination: {
+        el: ".swiper-pagination",
+        type: "progressbar",
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</body>
+
+</html>

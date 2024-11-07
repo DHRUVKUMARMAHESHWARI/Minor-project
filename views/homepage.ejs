@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css" />
+
+</head>
+
+<body class="bg-gray-100 flex justify-left flex-col items-left min-h-screen md:flex-row">
+  <%- include('partials/navBar.ejs') %>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-4 sm:p-6 md:p-8 lg:p-10 bg-gray-100 ">
+      <!-- Greeting Section -->
+      <div class="flex  md:flex-row justify-between items-top mb-6">
+        <div class="greeting mb-4 md:mb-0">
+          <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold">
+            <%= greeting %>, Deep
+          </h1>
+          <p class="text-gray-600 text-sm hidden sm:text-base md:block lg:text-lg ">Have a fruitful day ahead! 🌸</p>
+        </div>
+
+        <div class="flex items-center justify-center gap-4 h-fit text-xl font-semibold">
+          <h1 class="text-center hidden md:block">Sagar Institute of Science<br> and Technology</h1>
+          <img src="/images/SISTec_Logo.png" class="h-18 w-16 object-fit object-center" alt="">
+        </div>
+      </div>
+
+      <!-- Weather Section -->
+      <div
+        class="backdrop-blur-md bg-gradient-to-r from-sky-200 to-indigo-200 h-[18vw]  rounded-lg w-9/12 sm:h-fit w-full justify-center items-center md:flex ml-[10vw] items-center justify-between gap-24 overflow-hidden">
+
+
+        <div class="text-center md:w-1/2 flex-col sm:w-full h-[10vw] flex">
+          <% if (weather) { %>
+            <img src="<%= weatherImage %>" alt="Weather Icon" class="mx-auto mb-2 w-16 h-16">
+            <div class="text-3xl font-semibold mb-2">
+              <%= weather.main.temp %>°C
+            </div>
+            <div class="text-lg font-medium text-gray-600">
+              <%= weather.weather[0].description %>
+            </div>
+            <div class="text-sm text-gray-500 mt-2">
+              <%= weather.name %>, <%= weather.sys.country %>
+            </div>
+            <% } else { %>
+              <p class="text-red-500">Unable to fetch weather data.</p>
+              <% } %>
+        </div>
+
+        <!-- Time Section -->
+        <!-- <div class="text-center mb-4">
+    <div id="time" class="text-2xl font-semibold mt-4"><%= currentTime %></div>
+  </div> -->
+
+        <div class="img-container w-1/2 hidden md:block ">
+          <img class="object-center object-fit w-[60%] h-[30%] mt-[-3vw]" src="/images/user.gif" alt="">
+        </div>
+
+      </div>
+
+      <!-- Dashboard Cards -->
+      <div class="flex flex-col mt-10 sm:flex-row sm:flex-wrap lg:flex-nowrap gap-6">
+
+        <!-- Task List (Open) -->
+        <div class="flex-1 bg-white shadow-md rounded-lg p-4 sm:p-6 lg:p-8 w-full sm:w-[48%] lg:w-[30%]">
+          <h3 class="text-lg flex gap-2 items-center justify-center sm:text-xl font-semibold mb-4">Pending Submission
+            <img class="h-6 w-6" src="/images/Pending.png" alt=""> </h3>
+          <div class="space-y-4">
+            <div class="p-4 bg-blue-100 rounded-lg">
+              <h4 class="font-semibold">1: OOPs</h4>
+              <p class="text-sm sm:text-base text-gray-600">Due: 12/06/2020</p>
+            </div>
+            <div class="p-4 bg-blue-100 rounded-lg">
+              <h4 class="font-semibold">2: Java</h4>
+              <p class="text-sm sm:text-base text-gray-600">Due: 31/06/2020</p>
+            </div>
+            <div class="p-4 bg-blue-100 rounded-lg">
+              <h4 class="font-semibold">3: EEE</h4>
+              <p class="text-sm sm:text-base text-gray-600">Due: 11/07/2020</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- History -->
+        <div class="flex-1 bg-white shadow-md rounded-lg p-4 sm:p-6 lg:p-8 w-full sm:w-[48%] lg:w-[30%]">
+          <h3 class="text-lg flex items-center justify-center gap-2 sm:text-xl font-semibold mb-4">History <img
+              class="h-6 w-6" src="/images/History.png" alt=""></h3>
+          <p class="text-gray-700 bg-blue-100 p-4 mb-4 rounded-lg text-sm sm:text-base lg:text-lg">
+            In hac habitasse platea. Date: 12/06/2020
+          </p>
+          <p class="text-gray-700 bg-blue-100 p-4 mb-4 rounded-lg text-sm sm:text-base lg:text-lg">
+            In hac habitasse platea. Date: 02/08/2020
+          </p>
+          <p class="text-gray-700 bg-blue-100 p-4 mb-4 rounded-lg text-sm sm:text-base lg:text-lg">
+            In hac habitasse platea. Date: 18/06/2020
+          </p>
+        </div>
+
+        <!-- Status -->
+        <div class="flex-1 bg-white shadow-md rounded-lg p-4 sm:p-6 lg:p-8 w-full lg:w-[30%]">
+          <h3 class="text-lg sm:text-xl font-semibold mb-4">Status</h3>
+          <div class="flex justify-between items-center">
+            <p class="font-bold text-base sm:text-lg lg:text-xl">Pending forms</p>
+            <p class="text-sm text-gray-500">50 min left</p>
+          </div>
+          <div class="mt-3 space-y-4">
+            <div class="p-4 cursor-pointer bg-green-100 rounded-lg">
+              <h4 class="font-semibold">1: OOPs</h4>
+            </div>
+            <div class="p-4 cursor-pointer bg-red-100 rounded-lg">
+              <h4 class="font-semibold">2: Java</h4>
+            </div>
+            <div class="p-4 cursor-pointer bg-green-100 rounded-lg">
+              <h4 class="font-semibold">3: EEE</h4>
+            </div>
+            <div class="p-4 cursor-pointer bg-green-100 rounded-lg">
+              <h4 class="font-semibold">4: TOC</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Links -->
+      <div
+        class="links mt-[2vw] mx-[2vw] flex items-center justify-center gap-4 text-gray-700 bg-gray-300 px-4 py-2 mb-[-2vw] rounded-lg sm:mt-10">
+        <span class="font-bold text-xl">Follow us on</span>
+
+        <!-- Social Media Icons -->
+        <a href="https://www.youtube.com/@sagargroupofinstitutionssistec" target="_blank" class="text-black">
+          <!-- YouTube Icon -->
+          <i class="ri-youtube-fill text-2xl"></i>
+        </a>
+
+        <a href="https://x.com/SagarCollege?mx=2" target="_blank" class="text-black">
+          <!-- Twitter Icon -->
+          <i class="ri-twitter-x-line text-xl"></i>
+        </a>
+
+        <a href="https://www.facebook.com/sagargroupofinstitutionssistec/" target="_blank" class="text-black">
+          <!-- Facebook Icon -->
+          <i class="ri-facebook-circle-fill text-2xl"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/school/sagar-group-of-institutions-sistec/posts/?feedView=all" target="_blank"
+          class="text-black">
+          <!-- Lindekin -->
+          <i class="ri-linkedin-box-fill text-2xl"></i>
+        </a>
+
+        <a href="https://www.sistec.ac.in/" target="_blank" class="text-black">
+          <!-- SISTEC -->
+          <img class="h-8 w-6 object-center object-fit" src="/images/SISTec_Logo.png" alt="">
+        </a>
+      </div>
+
+
+
+    </main>
+
+    <script>
+      function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+      }
+
+      setInterval(updateTime, 1000);
+      updateTime();
+
+
+      const driver = window.driver.js.driver;
+
+        const driverObj = driver();
+
+        driverObj.highlight({
+          element: "",
+          popover: {
+            title: "Title",
+            description: "Description"
+          }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+</body>
+
+</html>

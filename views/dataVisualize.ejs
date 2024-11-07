@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+</head>
+
+<body class="bg-gray-100 flex justify-left flex-col items-left min-h-screen md:flex-row">
+    <!-- Nav Bar -->
+    <%- include('partials/navBar.ejs') %>
+        <!-- Main Content -->
+        <main class="flex-1 p-10 overflow-y-auto">
+            <h1 class="text-3xl text-center font-bold mb-8">DATA VISUALIZATION</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Course Organization and Delivery -->
+                <div class="bg-white p-5 rounded shadow">
+                    <h3 class="text-lg font-semibold mb-4">Course Organization and Delivery</h3>
+                    <canvas id="genderPreferencesChart"></canvas>
+                </div>
+
+                <!-- Teacher Effectiveness -->
+                <div class="bg-white p-5 rounded shadow">
+                    <h3 class="text-lg font-semibold mb-4">Teacher Effectiveness</h3>
+                    <canvas id="teacherEffectivenessChart"></canvas>
+                </div>
+
+                <!-- Student Learning Experience -->
+                <div class="bg-white p-5 rounded shadow">
+                    <h3 class="text-lg font-semibold mb-4">Student Learning Experience</h3>
+                    <canvas id="studentExperienceChart"></canvas>
+                </div>
+
+                <!-- Exams and Evaluation -->
+                <div class="bg-white p-5 rounded shadow">
+                    <h3 class="text-lg font-semibold mb-4">Exams and Evaluation</h3>
+                    <canvas id="examsEvaluationChart"></canvas>
+                </div>
+
+                <!-- General Course Questions -->
+                <div class="bg-white p-5 rounded shadow">
+                    <h3 class="text-lg font-semibold mb-4">General Course Questions</h3>
+                    <canvas id="generalQuestionsChart"></canvas>
+                </div>
+
+                <!-- Tutorial & Lab Components -->
+                <div class="bg-white p-5 rounded shadow">
+                    <h3 class="text-lg font-semibold mb-4">Tutorial & Lab Components</h3>
+                    <canvas id="tutorialLabChart"></canvas>
+                </div>
+            </div>
+            <button id="downloadExcel"
+                class="mt-10 bg-green-300 hover:bg-green-200 text-green-800 font-semibold py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg flex items-center justify-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-download">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" x2="12" y1="15" y2="3"></line>
+                </svg>
+                <span>Download Excel</span>
+            </button>
+        </main>
+
+
+        <script>
+            // Gender Preferences Chart
+            // Gender Preferences Chart
+            new Chart(document.getElementById('genderPreferencesChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Math', 'Science', 'Literature', 'Art'],
+                    datasets: [{
+                        label: 'Person',
+                        data: [75, 80, 60, 55],
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Preference Score'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Teacher Effectiveness Chart
+            new Chart(document.getElementById('teacherEffectivenessChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Communication', 'Knowledge', 'Engagement', 'Feedback'],
+                    datasets: [{
+                        label: 'Effectiveness',
+                        data: [85, 92, 78, 88],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)'
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Effectiveness Score'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Student Learning Experience Chart
+            new Chart(document.getElementById('studentExperienceChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Very Satisfied', 'Satisfied', 'Neutral', 'Dissatisfied'],
+                    datasets: [{
+                        data: [45, 35, 15, 5],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)'
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Overall Learning Experience'
+                        }
+                    }
+                }
+            });
+
+            // Exams and Evaluation Chart
+            new Chart(document.getElementById('examsEvaluationChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Fair', 'Challenging', 'Well-structured', 'Needs Improvement'],
+                    datasets: [{
+                        data: [50, 30, 15, 5],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.8)',
+                            'rgba(54, 162, 235, 0.8)',
+                            'rgba(255, 206, 86, 0.8)',
+                            'rgba(75, 192, 192, 0.8)'
+                        ],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Exam and Evaluation Quality'
+                        }
+                    }
+                }
+            });
+
+            // General Course Questions Chart
+            new Chart(document.getElementById('generalQuestionsChart'), {
+                type: 'bar',
+                data: {
+                    labels: ['Course Relevance', 'Material Quality', 'Workload', 'Support Available', 'Overall Satisfaction'],
+                    datasets: [{
+                        label: 'Average Score',
+                        data: [4.2, 4.0, 3.8, 4.1, 4.3],
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 5,
+                            title: {
+                                display: true,
+                                text: 'Score (out of 5)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Tutorial & Lab Components Chart
+            new Chart(document.getElementById('tutorialLabChart'), {
+                type: 'radar',
+                data: {
+                    labels: ['Clarity', 'Relevance', 'Equipment', 'Assistance', 'Time Allocation'],
+                    datasets: [{
+                        label: 'Tutorials',
+                        data: [4.5, 4.2, 4.0, 4.3, 3.8],
+                        fill: true,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    }, {
+                        label: 'Labs',
+                        data: [4.2, 4.5, 4.1, 4.4, 4.0],
+                        fill: true,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    elements: {
+                        line: {
+                            borderWidth: 3
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: false
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('downloadExcel').addEventListener('click', function () {
+                // Define data for each chart
+                const courseFeedbackData = [
+                    ['Aspect', 'Rating (out of 5)'],
+                    ['Course Content', 4.5],
+                    ['Teaching Methods', 4.2],
+                    ['Learning Resources', 4.0],
+                    ['Assignments', 3.8],
+                    ['Overall Satisfaction', 4.3]
+                ];
+
+                const teacherEffectivenessData = [
+                    ['Category', 'Effectiveness (out of 5)'],
+                    ['Communication', 4.5],
+                    ['Knowledge', 4.8],
+                    ['Engagement', 4.2],
+                    ['Feedback', 4.6]
+                ];
+
+                const studentExperienceData = [
+                    ['Experience', 'Rating'],
+                    ['Very Satisfied', 4],
+                    ['Satisfied', 3],
+                    ['Neutral', 2],
+                    ['Dissatisfied', 1]
+                ];
+
+                const examsEvaluationData = [
+                    ['Aspect', 'Rating (out of 5)'],
+                    ['Fairness', 4.2],
+                    ['Difficulty Level', 3.8],
+                    ['Clarity of Questions', 4.0],
+                    ['Time Allocation', 3.9]
+                ];
+
+                const generalQuestionsData = [
+                    ['Question', 'Response (out of 5)'],
+                    ['Course Relevance to Career', 4.5],
+                    ['Material Quality', 4.2],
+                    ['Workload Manageability', 3.8],
+                    ['Support Availability', 4.1],
+                    ['Would Recommend Course', 4.3]
+                ];
+
+                const tutorialLabData = [
+                    ['Component', 'Tutorials Rating', 'Labs Rating'],
+                    ['Clarity of Instructions', 4.5, 4.2],
+                    ['Relevance to Course', 4.2, 4.5],
+                    ['Equipment/Resources', 4.0, 4.1],
+                    ['Staff Assistance', 4.3, 4.4],
+                    ['Time Allocation', 3.8, 4.0]
+                ];
+
+                // Function to apply styling to a sheet
+                function styleSheet(sheet) {
+                    const range = XLSX.utils.decode_range(sheet['!ref']);
+                    const columnWidths = [];
+
+                    // Style for headers
+                    const headerStyle = {
+                        font: { bold: true, color: { rgb: "FFFFFF" } },
+                        fill: { fgColor: { rgb: "4472C4" } },
+                        alignment: { horizontal: "center", vertical: "center" }
+                    };
+
+                    // Style for data cells
+                    const dataStyle = {
+                        alignment: { horizontal: "center", vertical: "center" },
+                        border: {
+                            top: { style: "thin" },
+                            bottom: { style: "thin" },
+                            left: { style: "thin" },
+                            right: { style: "thin" }
+                        }
+                    };
+
+                    for (let C = range.s.c; C <= range.e.c; ++C) {
+                        let maxColWidth = 10; // Minimum width
+                        for (let R = range.s.r; R <= range.e.r; ++R) {
+                            const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })];
+                            if (!cell) continue;
+                            const cellValue = cell.v.toString();
+                            maxColWidth = Math.max(maxColWidth, cellValue.length);
+
+                            // Apply styles
+                            if (R === 0) {
+                                cell.s = headerStyle;
+                            } else {
+                                cell.s = dataStyle;
+                            }
+                        }
+                        columnWidths[C] = maxColWidth;
+                    }
+
+                    sheet['!cols'] = columnWidths.map(w => ({ wch: w }));
+                }
+
+                // Create a new workbook and add data
+                const workbook = XLSX.utils.book_new();
+                const sheets = [
+                    { name: 'Course Feedback', data: courseFeedbackData },
+                    { name: 'Teacher Effectiveness', data: teacherEffectivenessData },
+                    { name: 'Student Experience', data: studentExperienceData },
+                    { name: 'Exams Evaluation', data: examsEvaluationData },
+                    { name: 'General Questions', data: generalQuestionsData },
+                    { name: 'Tutorial & Lab', data: tutorialLabData }
+                ];
+
+                sheets.forEach(sheet => {
+                    const ws = XLSX.utils.aoa_to_sheet(sheet.data);
+                    styleSheet(ws);
+                    XLSX.utils.book_append_sheet(workbook, ws, sheet.name);
+                });
+
+                // Export workbook
+                XLSX.writeFile(workbook, 'individual_feedback_data.xlsx');
+            });
+        </script>
+</body>
+
+</html>

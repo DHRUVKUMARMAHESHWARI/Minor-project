@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-blue-50 sm:bg-gray-300 h-screen flex items-center justify-center">
+
+  <div class="flex bg-white shadow-lg rounded-lg overflow-hidden w-4/5 lg:w-4/5">
+    
+    <!-- Left side (illustration or character) -->
+    <div class="hidden lg:block w-1/2 bg-[#ECF0FC] flex justify-center items-center">
+      <div class="bg-white">
+        <img src="/images/a7f3dfd811a4c2288148244e26b390a1.jpg" alt="Character" class="w-full h-fit objec-top object-cover mx-auto">
+      </div>
+    </div>
+    <!-- Right side (form) -->
+    <div class="w-full lg:w-1/2 py-16 px-10 bg-white">
+      <h2 class="text-3xl font-bold text-center mb-6">Sign Up</h2>
+      
+      <!-- Form -->
+      <form action="/signup" method="POST" class="space-y-4">
+        
+        <!-- Email -->
+        <div>
+          <label for="email" class="text-sm font-bold">Enrollment Number</label>
+          <input type="text"  name="roll" class="w-full px-4 py-2 mt-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <!-- Password -->
+        <div>
+          <label for="password" class="text-sm font-bold">Password</label>
+          <input type="password"  name="password" class="w-full px-4 py-2 mt-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+        </div>
+
+        <!-- Year and Section in a single line -->
+        <div class="flex space-x-4">
+          <!-- Year (Dropdown) -->
+           <div class="w-1/2">
+            <label for="year" class="text-sm font-bold">Year</label>
+            <select id="year" name="year" class="w-full px-4 py-2 mt-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="" disabled selected>Select Year</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div> 
+
+          <!-- Section (Dropdown) -->
+           <div class="w-1/2">
+            <label for="section" class="text-sm font-bold">Section</label>
+            <select id="section" name="section" class="w-full px-4 py-2 mt-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
+              <option value="" disabled selected>Select Section</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+            </select>
+          </div> 
+        </div>
+
+        <!-- Submit button -->
+        <div>
+          <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+            Submit
+          </button>
+        </div>
+
+        <!-- Alternative login options -->
+        <div class="flex items-center justify-center mt-4">
+          <hr class="w-full border-gray-300">
+          <span class="px-2 flex w-80 items-center justify-center text-gray-500">or sign up with</span>
+          <hr class="w-full border-gray-300">
+        </div>
+
+        <!-- Social login buttons -->
+        <div class="flex justify-center space-x-4 mt-4">
+          <button class="bg-gray-100 px-6 py-2 rounded-lg hover:bg-gray-200">
+            <i class="ri-google-fill w-6"></i>
+          </button>
+          <button class="bg-gray-100 px-6 py-2 rounded-lg hover:bg-gray-200">
+            <i class="ri-github-fill w-6"></i>
+          </button>
+        </div>
+      </form>
+
+      <!-- Login link -->
+      <p class="text-center mt-4 text-sm">Have an account? <a href="/login" class="text-green-500 hover:underline">Log in</a></p>
+    </div>
+  </div>
+  
+</body>
+</html>

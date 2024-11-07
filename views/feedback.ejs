@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeedbackCard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex justify-left flex-col items-left min-h-screen md:flex-row">
+  <!-- Side bar  -->
+  <%- include('partials/navBar.ejs') %>
+  <!-- Comment Card Container -->
+  <div class="bg-white shadow-lg rounded-lg w-11/12 md:w-2/3 lg:w-10/12 sm:w-fit p-6">
+    
+    <!-- Title -->
+    <div class="text-center mb-6">
+      <h2 class="text-xl font-bold text-brown-600">Faculty Name</h2>
+      <p class="text-sm text-gray-500 mt-2">
+        Please take 5 minutes to fill this comment card to help us improve and serve better as per your requirement.
+      </p>
+    </div>
+
+    <!-- Feedback Form -->
+    <form action="/submitSuccess" method="get" class="space-y-4">
+      <!-- Feedback Questions -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full table-auto text-center border-collapse border border-gray-300">
+          <thead class="bg-gray-200">
+            <tr>
+              <th class="px-4 py-2 border">Criteria</th>
+              <th class="px-2 py-2 border">Excellent</th>
+              <th class="px-2 py-2 border">Good</th>
+              <th class="px-2 py-2 border">Average</th>
+              <th class="px-2 py-2 border">Poor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Repeatable Form Row -->
+            <% const feedbackCriteria = ["Quality of Food", "Cleanliness of Restaurant", "Quality of Service", "Friendliness of Staff", "Speed of Service", "Appearance of Staff", "Value of Money", "Restaurant Design"]; %>
+            <% feedbackCriteria.forEach((criteria) => { %>
+            <tr class="border">
+              <td class="px-4 py-2 border text-left"><%= criteria %></td>
+              <% for(let i=0; i<4; i++) { %>
+              <td class="px-2 py-2 border">
+                <input type="radio" name="<%= criteria %>" value="<%= i %>" class="form-radio text-blue-600" required>
+              </td>
+              <% } %>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Additional Comments -->
+      <div class="mt-4">
+        <label for="comments" class="block text-lg font-semibold">Any Other Comments or Suggestions:</label>
+        <textarea id="comments" name="comments" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your comments here"></textarea>
+      </div>
+
+
+      <!-- Submit Button -->
+      <div class="text-center mt-6">
+        <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">Submit Feedback</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
+

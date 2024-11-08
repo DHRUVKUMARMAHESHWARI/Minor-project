@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const fs = require('fs')
+const authorizedStudents = JSON.parse(fs.readFileSync('authorized_students.json', 'utf-8'));
 router.get("/", (req, res) => {
     res.render("login")
+    // console.log("object");
 });
 router.get("/home", (req, res) => {
     res.render("homepage")
 });
 
-const authorizedStudents = JSON.parse(fs.readFileSync('authorized_students.json', 'utf-8'));
-
+console.log(authorizedStudents);
 router.post('/register', (req, res) => {
     const { email, password } = req.body;
 
@@ -21,7 +22,7 @@ router.post('/register', (req, res) => {
     if (authorizedStudent) {
         // Create the user account in your application's database
         createUserAccount(authorizedStudent);
-         res.send("successfully created")
+        res.render("homepage",{student:authorizedStudent})
     } else {
         res.status(401).send('Invalid email or password. You are not an authorized student.');
     }
@@ -30,7 +31,6 @@ router.post('/register', (req, res) => {
 function createUserAccount(student) {
     // Code to create the user account in your application's database
     console.log(`Creating user account for ${student.StudentName}`);
-    
 }
 
 module.exports = router;

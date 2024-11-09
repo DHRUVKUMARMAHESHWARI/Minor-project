@@ -1,36 +1,73 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs')
-const authorizedStudents = JSON.parse(fs.readFileSync('authorized_students.json', 'utf-8'));
+const bcrypt = require('bcrypt');
+const fs = require('fs');
+const path = require('path');
+const { Student, validateStudent } = require('../models/student'); // Load Student model
+require('../config/mongoose'); // Connect to MongoDB
+
+// Load authorized students from JSON file
+const authorizedStudentsPath = path.join(__dirname, '..', 'authorized_students.json');
+const authorizedStudents = JSON.parse(fs.readFileSync(authorizedStudentsPath, 'utf-8'));
+
+// Render login page
 router.get("/", (req, res) => {
-    res.render("login")
-    // console.log("object");
-});
-router.get("/home", (req, res) => {
-    res.render("homepage")
+    res.render("login");
 });
 
-console.log(authorizedStudents);
-router.post('/register', (req, res) => {
+// Render homepage
+router.get("/home", (req, res) => {
+    res.render("homepage");
+});
+
+// Login route
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    // Check if the email and password match the authorized student data
+    // Find an authorized student that matches the email and password
     const authorizedStudent = authorizedStudents.find(
         (student) => student.Email === email && student.Password === password
     );
 
     if (authorizedStudent) {
-        // Create the user account in your application's database
-        createUserAccount(authorizedStudent);
-        res.render("homepage",{student:authorizedStudent})
+        try {
+            // Check if the student already exists in MongoDB
+            let student = await Student.findOne({ Email: email });
+
+            if (!student) {
+                // Hash the password before saving
+                const salt = await bcrypt.genSalt(10);
+                const hashedPassword = await bcrypt.hash(password, salt);
+
+                // Prepare student data
+                const studentData = {
+                    ...authorizedStudent,
+                    Password: hashedPassword
+                };
+
+                // Validate student data with Joi
+                const { error } = validateStudent(studentData);
+                if (error) return res.status(400).send(error.details[0].message);
+
+                // Create and save the student in MongoDB
+                student = new Student(studentData);
+                await student.save();
+
+                console.log(`User account created for ${student.StudentName}`);
+            } else {
+                console.log(`User ${student.StudentName} already exists in MongoDB.`);
+            }
+
+            // Render homepage with student data from MongoDB
+            res.render("homepage", { student });
+        } catch (error) {
+            console.error('Error processing login:', error);
+            res.status(500).send('Internal Server Error');
+        }
     } else {
+        // Unauthorized access
         res.status(401).send('Invalid email or password. You are not an authorized student.');
     }
 });
-
-function createUserAccount(student) {
-    // Code to create the user account in your application's database
-    console.log(`Creating user account for ${student.StudentName}`);
-}
 
 module.exports = router;
